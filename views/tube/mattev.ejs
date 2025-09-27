@@ -1,0 +1,12 @@
+<%- include('../layouts/main.ejs', { title: 'エラー' }) %>
+
+<div class="error-page">
+    <h1>エラーが発生しました</h1>
+    <p><%= error %></p>
+    <% if (details) { %>
+    <p>詳細: <%= details %></p>
+    <% } %>
+    <a href="/">ホームページに戻る</a>
+</div>
+
+      <%- include('../layouts/footer.ejs') %>
