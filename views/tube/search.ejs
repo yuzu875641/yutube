@@ -4,11 +4,10 @@
     <% if (results && results.length > 0) { %>
         <% results.forEach(video => { %>
             <a href="/yt/<%= video.id %>" class="video-card">
-                <% if (video.thumbnail) { %>
-                <img src="<%= video.thumbnail %>" alt="<%= video.title %>" class="video-thumbnail">
-                <% } else { %>
-                <img src="/path/to/placeholder-image.png" alt="サムネイル画像が見つかりません" class="video-thumbnail">
-                <% } %>
+                <% 
+                    const thumbnailUrl = video.thumbnail ? video.thumbnail : `http://img.youtube.com/vi/${video.id}/mqdefault.jpg`;
+                %>
+                <img src="<%= thumbnailUrl %>" alt="<%= video.title %>" class="video-thumbnail">
                 <div class="video-info">
                     <h2 class="video-title"><%= video.title %></h2>
                     <% if (video.author && video.author.name) { %>
