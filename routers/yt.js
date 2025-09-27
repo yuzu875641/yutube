@@ -1,7 +1,6 @@
 import express from 'express';
 import { getYouTubeData } from '../server/wakame.js';
-import { getVideoInfo } from '../server/youtube.js';
-import { getYtInfo } from '../server/wakame.js';
+import ytdl from 'ytdl-core'; // ytdl-core を使用
 import miniget from 'miniget';
 
 const router = express.Router();
@@ -27,12 +26,11 @@ router.get('/:id', async (req, res) => {
     }
 
     try {
-        const [videoData, videoInfo] = await Promise.all([
-            getYouTubeData(videoId),
-            getVideoInfo(videoId)
-        ]);
-        
+        const videoData = await getYouTubeData(videoId);
         const streamUrl = videoData.hlsUrl ? `/yt/live/s/${videoId}` : videoData.formatStreams.reverse()[0].url;
+        
+        // ytdl-coreで動画情報を取得する
+        const videoInfo = await ytdl.getInfo(videoId);
 
         res.render('tube/watch.ejs', {
             streamUrl,
@@ -53,11 +51,11 @@ router.get('/:id', async (req, res) => {
 router.get('/edu/:id', async (req, res) => {
   const videoId = req.params.id;
   try {
-    const ytinfo = await getYtInfo();
-    const videosrc = `https://www.youtubeeducation.com/embed/${videoId}${ytinfo}`;
-    const videoInfo = await getVideoInfo(videoId);
+    // ytdl-coreで動画情報を取得
+    const videoInfo = await ytdl.getInfo(videoId);
+    const videosrc = `https://www.youtubeeducation.com/embed/${videoId}`;
           
-    res.render('umekomi/edu.ejs', {videosrc, videoInfo, videoId});
+    res.render('umekomi/edu.ejs', { videosrc, videoInfo, videoId });
   } catch (error) {
      res.status(500).render('tube/mattev.ejs', { 
       videoId, 
@@ -70,10 +68,11 @@ router.get('/edu/:id', async (req, res) => {
 router.get('/nocookie/:id', async (req, res) => {
   const videoId = req.params.id;
   try {
+    // ytdl-coreで動画情報を取得
+    const videoInfo = await ytdl.getInfo(videoId);
     const videosrc = `https://www.youtube-nocookie.com/embed/${videoId}`;
-    const videoInfo = await getVideoInfo(videoId);
           
-    res.render('umekomi/nocookie.ejs', {videosrc, videoInfo, videoId});
+    res.render('umekomi/nocookie.ejs', { videosrc, videoInfo, videoId });
   } catch (error) {
      res.status(500).render('tube/mattev.ejs', { 
       videoId, 
