@@ -1,0 +1,21 @@
+<%- include('../layouts/main.ejs', { title: query ? `${query} の検索結果` : '検索' , query: query }) %>
+
+<div class="video-grid">
+    <% if (results && results.length > 0) { %>
+        <% results.forEach(video => { %>
+            <a href="/yt/<%= video.id %>" class="video-card">
+                <img src="<%= video.thumbnail %>" alt="<%= video.title %>" class="video-thumbnail">
+                <div class="video-info">
+                    <h2 class="video-title"><%= video.title %></h2>
+                    <p class="video-channel"><%= video.author.name %></p>
+                </div>
+            </a>
+        <% }) %>
+    <% } else if (query) { %>
+        <p>検索結果が見つかりませんでした。</p>
+    <% } else { %>
+        <p>検索キーワードを入力してください。</p>
+    <% } %>
+</div>
+
+      <%- include('../layouts/footer.ejs') %>
