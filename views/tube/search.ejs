@@ -7,7 +7,11 @@
                 <img src="<%= video.thumbnail %>" alt="<%= video.title %>" class="video-thumbnail">
                 <div class="video-info">
                     <h2 class="video-title"><%= video.title %></h2>
+                    <% if (video.author && video.author.name) { %>
                     <p class="video-channel"><%= video.author.name %></p>
+                    <% } else { %>
+                    <p class="video-channel">不明なチャンネル</p>
+                    <% } %>
                 </div>
             </a>
         <% }) %>
@@ -18,4 +22,4 @@
     <% } %>
 </div>
 
-      <%- include('../layouts/footer.ejs') %>
+<%- include('../layouts/footer.ejs') %>
