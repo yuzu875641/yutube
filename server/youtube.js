@@ -1,4 +1,5 @@
-import { Innertube } from 'youtubei.js';
+import pkg from 'youtubei.js';
+const { Innertube } = pkg;
 
 let youtube;
 
