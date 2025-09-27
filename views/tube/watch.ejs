@@ -1,0 +1,28 @@
+<%- include('../layouts/main.ejs', { title: videoInfo.title }) %>
+
+<div class="video-container">
+    <% if (streamUrl) { %>
+    <video controls autoplay class="video-player">
+        <source src="<%= streamUrl %>" type="video/mp4">
+        </video>
+    <% } else { %>
+    <p>動画のストリームURLが見つかりませんでした。</p>
+    <% } %>
+</div>
+
+<div class="video-details">
+    <h1><%= videoInfo.title %></h1>
+    <div class="channel-info">
+        <img src="<%= videoInfo.channelIcon %>" alt="<%= videoInfo.channelName %>" class="channel-icon">
+        <div>
+            <p><%= videoInfo.channelName %></p>
+            <p class="video-channel"><%= videoInfo.channelSubsc %> subscribers</p>
+        </div>
+    </div>
+    <div class="stats">
+        <span><%= videoInfo.viewCount %> views</span> | <span><%= videoInfo.likeCount %> likes</span>
+    </div>
+    <p class="video-description"><%= videoInfo.description %></p>
+</div>
+
+      <%- include('../layouts/footer.ejs') %>
