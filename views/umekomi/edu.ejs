@@ -1,0 +1,12 @@
+<%- include('../layouts/main.ejs', { title: videoInfo.title }) %>
+
+<div class="video-container">
+    <iframe width="100%" height="auto" src="<%= videosrc %>" frameborder="0" allowfullscreen class="video-player"></iframe>
+</div>
+
+<div class="video-details">
+    <h1><%= videoInfo.title %></h1>
+    <p class="video-channel"><%= videoInfo.channelName %></p>
+</div>
+
+      <%- include('../layouts/footer.ejs') %>
