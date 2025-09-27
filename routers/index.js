@@ -1,6 +1,5 @@
 import express from 'express';
 import ytsr from 'ytsr';
-import ytpl from 'ytpl';
 
 const router = express.Router();
 
@@ -18,10 +17,13 @@ router.get('/search', async (req, res) => {
   }
 
   try {
-    const filters = await ytsr.getFilters(query);
-    const filter = filters.get('Type').find(f => f.name === 'Video');
-    const searchResults = await ytsr(filter.url, { limit: 20 });
+    // 検索クエリで直接動画検索を実行
+    const searchResults = await ytsr(query, { 
+      limit: 20,
+      type: 'video' // 直接 'video' フィルタを指定
+    });
     
+    // searchResultsオブジェクトは、アイテムの配列を直接含んでいます
     res.render('tube/search.ejs', {
       results: searchResults.items,
       query: query
