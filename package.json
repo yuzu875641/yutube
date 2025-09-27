@@ -16,7 +16,7 @@
     "ytsr": "^3.0.0",
     "ytpl": "^2.3.0",
     "cookie-parser": "^1.4.6",
-    "youtubei.js": "^1.5.0",
+    "youtubei.js": "^1.4.1", 
     "undici": "^6.8.0",
     "miniget": "^4.2.3",
     "cors": "^2.8.5",
